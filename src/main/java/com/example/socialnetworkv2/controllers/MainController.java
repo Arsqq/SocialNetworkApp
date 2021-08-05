@@ -51,7 +51,7 @@ public class MainController {
         model.addAttribute("filter", filter);
 
 
-        return "index";
+        return "main";
     }
 
     @SneakyThrows
@@ -83,6 +83,6 @@ public class MainController {
         model.put("filter", "");
 
 
-        return "index";
+        return "main";
     }
 }

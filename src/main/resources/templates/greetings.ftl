@@ -1,8 +1,8 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-<div>
-    Hello,user
-    <a href="/main">Main Page</a>
-</div>
+<H4>Hello,Guest</H4>
+    <div>
+        This is a simple SocialNetwork
+    </div>
 </@c.page>
