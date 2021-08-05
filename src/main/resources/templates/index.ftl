@@ -33,8 +33,7 @@
                  </#if>
             </div>
         </div>
-    <#els
-
+    <#elsda
         No message
     </#list>
 </@c.page>
