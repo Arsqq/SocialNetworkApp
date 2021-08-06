@@ -3,6 +3,7 @@ package com.example.socialnetworkv2.controllers;
 import com.example.socialnetworkv2.domain.Message;
 import com.example.socialnetworkv2.domain.User;
 import com.example.socialnetworkv2.repo.MessageRepo;
+import com.example.socialnetworkv2.service.FileUploaderService;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,9 @@ public class MainController {
 
     @Autowired
     private MessageRepo messageRepo;
+
+    @Autowired
+    FileUploaderService fileUploaderService;
 
     private final Logger LOG= LoggerFactory.getLogger(MainController.class);
 
@@ -62,21 +66,8 @@ public class MainController {
             @RequestParam String tag, Map<String, Object> model
     ) {
         Message message = new Message(text, tag, user);
-
-        if(file!=null&& !file.getOriginalFilename().isEmpty()){
-           File uploadFolder=new File(uploadPath);
-            if(!uploadFolder.exists()){
-                uploadFolder.mkdir();
-            }
-
-            String uuidFile= UUID.randomUUID().toString();
-            String resultFileName = uuidFile + "." + file.getOriginalFilename();
-            file.transferTo(new File(uploadPath+"/"+resultFileName));
-            message.setFilename(resultFileName);
-        }
-
+        message.setFilename(fileUploaderService.uploadFile(file));
         messageRepo.save(message);
-
         List<Message> messages = messageRepo.findAll();
 
         model.put("messages", messages);
