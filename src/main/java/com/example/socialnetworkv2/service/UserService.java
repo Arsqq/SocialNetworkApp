@@ -5,9 +5,12 @@ import com.example.socialnetworkv2.domain.Role;
 import com.example.socialnetworkv2.domain.User;
 import com.example.socialnetworkv2.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +29,11 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepo.findByUsername(username);
+        User user= userRepo.findByUsername(username);
+        if(user==null){
+            throw new LockedException("Некорректные данные для авторизации");
+        }
+            return user;
     }
 
     public boolean addUser(User user){
@@ -46,11 +53,11 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
+
     private void sendMessage(User user) {
         if(!ObjectUtils.isEmpty(user.getEmail())){
-
             String message=String.format("Hello, %s\n" +
-                    "Welcome to Sociality. Please, visit next link: http://localhost:8081/activate/%s",
+                    "Welcome to Sociality. Please, visit next link: http://localhost:8082/activate/%s",
                     user.getUsername(), user.getActivationCode());
             mailService.send(user.getEmail(),"Activation code",message);
         }
@@ -112,6 +119,16 @@ public class UserService implements UserDetailsService {
         if (isEmailChanged) {
             sendMessage(user);
         }
+    }
+
+    public void subscribe(User currentUser,User user) {
+        user.getSubscribers().add(currentUser);
+        userRepo.save(user);
+    }
+
+    public void unsubscribe(User currentUser, User user) {
+        user.getSubscribers().remove(currentUser);
+        userRepo.save(user);
     }
 }
 

@@ -5,21 +5,30 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
 @Entity
 @Table(name="usr")
-public class User implements UserDetails {
+public class User implements UserDetails,Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message=" Username can't be empty")
     private String username;
+    @NotBlank(message=" Password can't be empty")
     private String password;
     private boolean active;
+    @Email(message="Email is not correct")
+    @NotBlank(message="Email can't be empty")
     private String email;
     private String activationCode;
 
@@ -29,6 +38,37 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set <Role> roles;
 
+
+    @OneToMany(mappedBy = "author",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    private Set<Message> messages;
+
+    @ManyToMany
+    @JoinTable(
+            name="user_subscriptions",
+            joinColumns = {@JoinColumn(name="channel_id")},
+            inverseJoinColumns = {@JoinColumn(name="subscriber_id")}
+    )
+    private Set<User> subscribers=new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name="user_subscriptions",
+            joinColumns = {@JoinColumn(name="subscriber_id")},
+            inverseJoinColumns = {@JoinColumn(name="channel_id")}
+    )
+    private Set<User> subscriptions=new HashSet<>();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id.equals(user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     private boolean isAdmin(){
          return roles.contains(Role.ADMIN);

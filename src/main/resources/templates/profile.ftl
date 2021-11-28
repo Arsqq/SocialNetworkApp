@@ -1,7 +1,7 @@
 
 <#import "parts/common.ftl" as c>
-
 <@c.page>
+    <link rel="stylesheet" href="static/style.css">
     <h5>${username}</h5>
     ${message?ifExists}
     <form method="post">

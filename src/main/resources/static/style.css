@@ -1,11 +1,62 @@
 body{
-    color:darkcyan;
+    color:indianred;
+    background: url('/static/images/wp5149781.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .navbar-custom{
-    background:darkseagreen;
+    background:yellow;
 }
 
 .navbar-custom .navbar-text {
-    color:darkturquoise;
+    color:yellow;
 }
+
+@font-face {
+    font-family: "MyFont";
+    src:  url('chocolatecyr_lat.otf') format("opentype");
+}
+.header {
+    font-family: Rockwell;
+    text-align: center;
+    font-style: normal;
+    font-size: 100px;
+    background:linear-gradient(red,white);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.header2 {
+    font-family: "Book Antiqua";
+    text-align: center;
+    font-style: normal;
+    font-size: 70px;
+    background:linear-gradient(white,red);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@-webkit-keyframes fontfix {
+    from { opacity: 5%; }
+    to   { opacity: 5%; }
+}
+
+body {
+    -webkit-animation-delay: 0.1s;
+    -webkit-animation-name: fontfix;
+    -webkit-animation-duration: 0.1s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: linear;
+}
+
+th {
+    color: red;
+}
+
+tr{
+    color:chocolate;
+}
+
