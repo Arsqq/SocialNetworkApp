@@ -72,9 +72,11 @@ public class MessageController {
     @SneakyThrows
     @PostMapping("/main")
     public String add(@RequestParam("file") MultipartFile file,
+                      @RequestParam(required = false, defaultValue = "") String filter,
                       @AuthenticationPrincipal User user,
                       @Valid Message message,
                       BindingResult bindingResult,
+                      @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable,
                       Model model
     ) {
         message.setAuthor(user);
@@ -87,9 +89,9 @@ public class MessageController {
             message.setFilename(fileUploaderService.uploadFile(file));
             messageRepo.save(message);
         }
-        List<Message> messages = messageRepo.findAll();
-
-        model.addAttribute("messages", messages);
+        model.addAttribute("url", "/main");
+        Page<MessageDto> page=messageService.messageList(pageable, filter,user);
+        model.addAttribute("page", page);
         model.addAttribute("filter", "");
 
 

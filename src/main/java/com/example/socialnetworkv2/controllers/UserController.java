@@ -45,7 +45,7 @@ public class UserController {
     public String getProfile(Model model, @AuthenticationPrincipal User user) {
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
-
+        model.addAttribute("user",user);
         return "profile";
     }
 
@@ -56,8 +56,7 @@ public class UserController {
             @RequestParam String email
     ) {
         userService.updateProfile(user, password, email);
-
-        return "redirect:http://localhost:8081/user/profile";
+        return "redirect:http://localhost:8082/user/profile";
     }
 
     @GetMapping("subscribe/{user}")
