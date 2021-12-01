@@ -1,6 +1,6 @@
 <#import "parts/common.ftl" as c>
 <@c.page>
-    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="/static/backForMessagesAndProfile.css">
     <h3>${userChannel.username}</h3>
     <#if !isCurrentUser>
         <#if isSubscribed>

@@ -1,6 +1,6 @@
 <#import "parts/common.ftl" as c>
-
 <@c.page>
+    <link rel="stylesheet" href="/static/backForMessagesAndProfile.css">
     <div class="form-row">
         <div class="form-group col-md-6">
             <form method="get" action="/main" class="form-inline">

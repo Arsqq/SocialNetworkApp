@@ -15,7 +15,7 @@
                 </span>
                     <!--   user name Input-->
                     <input type="text"  id="txt-input"
-                           class="form-input" name="username"
+                           class="form-input" name="username" placeholder="Username"
                            value="<#if user??>${user.username}</#if>">
 
                     <br>
@@ -72,7 +72,7 @@
 <#macro logout>
     <form action="/logout" method="post">
         <input type="hidden" name="_csrf" value="${_csrf.token}" />
-        <button class="btn btn-primary" type="submit"><#if user??>Sign out<#else>Log in</#if></button>
+        <button class="btn btn-primary" type="submit"><#if user??>Sign out <i class="fas fa-sign-out-alt"></i><#else>Log in <i class="fas fa-sign-out-alt"></i></#if></button>
 
     </form>
 </#macro>
