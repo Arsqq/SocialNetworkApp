@@ -20,7 +20,7 @@
             <div class="card-footer text-muted container">
                 <div class="row">
                     <a class="badge badge-success align-self-center" href="/user-messages/${message.author.id}">${message.authorName}</a>
-                    <a class="col align-self-center" href="/messages/${message.id}/like">
+                    <a class="col align-self-center"  href="/messages/${message.id}/like">
                         <#if message.meLiked>
                             <i class="fas fa-heart"></i>
                         <#else>
@@ -28,6 +28,8 @@
                         </#if>
                         ${message.likes}
                     </a>
+                    <a href="/messages/${message.id}/comments">
+                        <i class="fa fa-comment" aria-hidden="true"></i>
                     <#if message.author.id == currentUserId>
                         <a class="btn btn-warning" href="/user-messages/${message.author.id}?message=${message.id}">Edit</a>
                     </#if>
@@ -44,5 +46,4 @@
         No message
     </#list>
 </div>
-
 <@p.pager url page />

@@ -2,13 +2,41 @@
 <#import "parts/common.ftl" as c>
 <@c.page>
     <link rel="stylesheet" href="/static/backForMessagesAndProfile.css">
+    <link rel="stylesheet" href="/static/inputFile.css">
     <link rel="stylesheet" href="/static/profile.css">
     ${message!}
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <div class="container rounded bg-white mt-5 mb-5">
         <div class="row">
             <div class="col-md-3 border-right">
-                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">${user.username!}</span><span class="text-black-50">${user.email!''}</span><span> </span></div>
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <img class="avatar"
+                         src="/img/${user.filename!}">
+                    <input type="file" id="real-file" name="file" hidden="hidden" />
+                    <button type="button" id="custom-button">CHOOSE A FILE</button>
+                    <span id="custom-text">No file chosen, yet.</span>
+                    <script type="text/javascript">
+                        const realFileBtn = document.getElementById("real-file");
+                        const customBtn = document.getElementById("custom-button");
+                        const customTxt = document.getElementById("custom-text");
+
+                        customBtn.addEventListener("click", function() {
+                            realFileBtn.click();
+                        });
+
+                        realFileBtn.addEventListener("change", function() {
+                            if (realFileBtn.value) {
+                                customTxt.innerHTML = realFileBtn.value.match(
+                                    /[\/\\]([\w\d\s\.\-\(\)]+)$/
+                                )[1];
+                            } else {
+                                customTxt.innerHTML = "No file chosen, yet.";
+                            }
+                        });
+                    </script>
+                    <span class="font-weight-bold">${user.username!}</span>
+                    <span class="text-black-50">${user.email!''}</span>
+                </div>
             </div>
             <div class="col-md-5 border-right">
                 <div class="p-3 py-5">

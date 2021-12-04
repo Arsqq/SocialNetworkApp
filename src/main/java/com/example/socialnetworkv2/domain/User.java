@@ -40,6 +40,7 @@ public class User implements UserDetails,Serializable {
     private String surname;
     private String phone;
     private Integer age;
+    private String filename;
 
     @ElementCollection(targetClass = Role.class,fetch =FetchType.EAGER)
     @CollectionTable(name="user_role",joinColumns = @JoinColumn(name="user_id"))

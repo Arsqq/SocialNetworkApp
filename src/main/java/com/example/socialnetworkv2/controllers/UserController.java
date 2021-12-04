@@ -3,6 +3,7 @@ package com.example.socialnetworkv2.controllers;
 import com.example.socialnetworkv2.domain.Role;
 import com.example.socialnetworkv2.domain.User;
 import com.example.socialnetworkv2.repo.UserRepo;
+import com.example.socialnetworkv2.service.FileUploaderService;
 import com.example.socialnetworkv2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
@@ -21,6 +23,9 @@ public class UserController {
     UserService userService;
     @Autowired
     UserRepo userRepo;
+    @Autowired
+    private FileUploaderService fileUploaderService;
+
     @GetMapping
     public String displayUsers(Model model){
         model.addAttribute("users",userService.findAll());
@@ -54,6 +59,7 @@ public class UserController {
     @PostMapping("profile")
     public String updateProfile(
             @AuthenticationPrincipal User user,
+            @RequestParam("file") MultipartFile file,
             @RequestParam String password,
             @RequestParam String email,
             @RequestParam String name,
@@ -61,6 +67,7 @@ public class UserController {
             @RequestParam String phone,
             @RequestParam Integer age,Model model
     ) {
+        user.setFilename(fileUploaderService.uploadFile(file));
         userService.updateProfile(user, password, email,name,surname,phone,age);
         userRepo.save(user);
         return "redirect:/user/profile";

@@ -1,7 +1,12 @@
 <#import "parts/common.ftl" as c>
 <@c.page>
     <link rel="stylesheet" href="/static/backForMessagesAndProfile.css">
-    <h3>${userChannel.username}</h3>
+    <link rel="stylesheet" href="/static/profile.css">
+    <div class="row">
+        <img class="avatar"
+             src="/img/${userChannel.filename!}">
+        <h3>${userChannel.username}</h3>
+    </div>
     <#if !isCurrentUser>
         <#if isSubscribed>
             <a class="btn btn-warning" href="/user/unsubscribe/${userChannel.id}">Unsubscribe</a>

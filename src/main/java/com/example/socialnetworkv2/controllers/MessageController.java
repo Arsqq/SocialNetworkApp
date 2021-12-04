@@ -58,7 +58,7 @@ public class MessageController {
     @GetMapping("/home")
     public String home(Model model, @AuthenticationPrincipal User user) {
         model.addAttribute("user", user);
-        return "greetings";
+        return "home";
     }
 
     @GetMapping("/main")
@@ -184,4 +184,10 @@ public class MessageController {
 
         return "redirect:" + components.getPath();
     }
+
+    @GetMapping("/messages/{message}/comments")
+    public String comment(@PathVariable Message message) {
+        return "comments";
+    }
+
 }
