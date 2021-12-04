@@ -2,11 +2,13 @@ package com.example.socialnetworkv2.controllers;
 
 import com.example.socialnetworkv2.domain.Role;
 import com.example.socialnetworkv2.domain.User;
+import com.example.socialnetworkv2.repo.UserRepo;
 import com.example.socialnetworkv2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +19,8 @@ import java.util.Map;
 public class UserController {
     @Autowired
     UserService userService;
-
+    @Autowired
+    UserRepo userRepo;
     @GetMapping
     public String displayUsers(Model model){
         model.addAttribute("users",userService.findAll());
@@ -42,9 +45,8 @@ public class UserController {
     }
 
     @GetMapping("profile")
-    public String getProfile(Model model, @AuthenticationPrincipal User user) {
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("email", user.getEmail());
+    public String getProfile(Model model, @AuthenticationPrincipal User currentUser) {
+        User user=userRepo.findByUsername(currentUser.getUsername());
         model.addAttribute("user",user);
         return "profile";
     }
@@ -53,10 +55,15 @@ public class UserController {
     public String updateProfile(
             @AuthenticationPrincipal User user,
             @RequestParam String password,
-            @RequestParam String email
+            @RequestParam String email,
+            @RequestParam String name,
+            @RequestParam String surname,
+            @RequestParam String phone,
+            @RequestParam Integer age,Model model
     ) {
-        userService.updateProfile(user, password, email);
-        return "redirect:http://localhost:8082/user/profile";
+        userService.updateProfile(user, password, email,name,surname,phone,age);
+        userRepo.save(user);
+        return "redirect:/user/profile";
     }
 
     @GetMapping("subscribe/{user}")

@@ -47,6 +47,11 @@
               ${passwordError}
             </div>
           </#if>
+          <#if passwordDifferenceError??>
+            <div class="invalid-feedback">
+              ${passwordDifferenceError}
+            </div>
+          </#if>
           <input  type="password" name="password2"
                  class="form-control ${(password2Error??)?string('is-invalid', '')}" placeholder="Confirm Password">
           <#if password2Error??>

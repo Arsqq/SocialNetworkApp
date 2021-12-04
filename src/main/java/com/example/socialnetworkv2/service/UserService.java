@@ -96,7 +96,8 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
-    public void updateProfile(User user, String password, String email) {
+    public void updateProfile(User user, String password, String email,
+                              String name,String surname,String phone,Integer age) {
         String userEmail = user.getEmail();
 
         boolean isEmailChanged = (email != null && !email.equals(userEmail)) ||
@@ -113,7 +114,10 @@ public class UserService implements UserDetailsService {
         if (!ObjectUtils.isEmpty(password)) {
             user.setPassword(password);
         }
-
+        user.setName(name);
+        user.setSurname(surname);
+        user.setPhone(phone);
+        user.setAge(age);
         userRepo.save(user);
 
         if (isEmailChanged) {

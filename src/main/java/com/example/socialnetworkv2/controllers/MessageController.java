@@ -55,6 +55,12 @@ public class MessageController {
         return "greetings";
     }
 
+    @GetMapping("/home")
+    public String home(Model model, @AuthenticationPrincipal User user) {
+        model.addAttribute("user", user);
+        return "greetings";
+    }
+
     @GetMapping("/main")
     public String main(@RequestParam(required = false, defaultValue = "") String filter,
                        Model model,@PageableDefault(sort = {"id"},direction = Sort.Direction.DESC) Pageable pageable,

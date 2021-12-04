@@ -1,6 +1,9 @@
 package com.example.socialnetworkv2.domain;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,11 +16,13 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name="usr")
-public class User implements UserDetails,Serializable {
 
+public class User implements UserDetails,Serializable {
+    private static final long serialVersionUID = -8377820243186312358L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -31,7 +36,10 @@ public class User implements UserDetails,Serializable {
     @NotBlank(message="Email can't be empty")
     private String email;
     private String activationCode;
-
+    private String name;
+    private String surname;
+    private String phone;
+    private Integer age;
 
     @ElementCollection(targetClass = Role.class,fetch =FetchType.EAGER)
     @CollectionTable(name="user_role",joinColumns = @JoinColumn(name="user_id"))

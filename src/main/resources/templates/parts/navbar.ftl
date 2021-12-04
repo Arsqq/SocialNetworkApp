@@ -11,7 +11,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link"  href="/">Home <i class="fas fa-home"></i></a>
+                <a class="nav-link"  href="/home">Home <i class="fas fa-home"></i></a>
             </li>
             <#if user??>
             <li class="nav-item">
@@ -32,7 +32,6 @@
                        Settings</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/user/profile">Profile</a>
-                        <a class="dropdown-item" href="#">User Information</a>
                         <div class="dropdown-divider"></div>
                     </div>
                 </li>
