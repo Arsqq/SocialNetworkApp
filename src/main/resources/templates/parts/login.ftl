@@ -1,6 +1,7 @@
 <#include "security.ftl">
 <#macro login path isRegisterForm>
-    <link rel="stylesheet" href="/static/formStyle.css" />
+    <link rel="stylesheet" href="/static/formStyle.css">
+    <link rel="stylesheet" href="/static/backForMessagesAndProfile.css">
     <div class="overlay">
         <form class="my-form" action="${path}" method="post">
             <div class="con">
@@ -72,7 +73,7 @@
 <#macro logout>
     <form action="/logout" method="post">
         <input type="hidden" name="_csrf" value="${_csrf.token}" />
-        <button class="btn btn-primary" type="submit"><#if user??>Sign out <i class="fas fa-sign-out-alt"></i><#else>Log in <i class="fas fa-sign-out-alt"></i></#if></button>
+        <button class="container-button" type="submit"><#if user??>Sign out <i class="fas fa-sign-out-alt"></i><#else>Log in <i class="fas fa-sign-out-alt"></i></#if></button>
 
     </form>
 </#macro>

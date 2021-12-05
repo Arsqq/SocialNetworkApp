@@ -1,6 +1,7 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
+    <link rel="stylesheet" href="/static/backForMessagesAndProfile.css">
     User editor
 
     <form action="/user" method="post">

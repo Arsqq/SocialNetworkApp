@@ -1,9 +1,13 @@
 package com.example.socialnetworkv2.domain.dto;
 
+import com.example.socialnetworkv2.domain.Comment;
 import com.example.socialnetworkv2.domain.Message;
 import com.example.socialnetworkv2.domain.User;
 import com.example.socialnetworkv2.domain.utils.MessageHelper;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class MessageDto {
@@ -14,6 +18,7 @@ public class MessageDto {
     private String filename;
     private Long likes;
     private Boolean meLiked;
+    private int commentsAmount;
 
     public MessageDto(Message message, Long likes, Boolean meLiked) {
         this.id = message.getId();
@@ -23,6 +28,7 @@ public class MessageDto {
         this.filename = message.getFilename();
         this.likes = likes;
         this.meLiked = meLiked;
+        this.commentsAmount=message.getComments().size();
     }
 
     public String getAuthorName(){

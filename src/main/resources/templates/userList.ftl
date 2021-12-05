@@ -1,8 +1,8 @@
 <#import "parts/common.ftl" as c>
 <#include "parts/security.ftl">
 <@c.page>
-
     <link rel="stylesheet" href="static/table.css">
+    <link rel="stylesheet" href="static/btn.css">
     <h1>User List</h1>
     <div class="tbl-header">
 <table>
@@ -23,9 +23,19 @@
         <tr>
             <td>${user.username}</td>
             <td><#list user.roles as role>${role}<#sep>,</#list ></td>
-            <td><a href="/user/${user.id}" >
+            <td>
+                <div class="row">
+                <button class="btn" onclick=window.location.href="/user/${user.id}">
                     <i class="fas fa-edit"></i>
-                </a> </td>
+                </button>
+                <form action="/user/${user.id}" method="post">
+                    <button type="submit" value="delete" class="btn">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                </form>
+                </div>
+            </td>
         </tr>
     </#list>
             <tbody>

@@ -13,7 +13,7 @@
                     <img class="avatar"
                          src="/img/${user.filename!}">
                     <input type="file" id="real-file" name="file" hidden="hidden" />
-                    <button type="button" id="custom-button">CHOOSE A FILE</button>
+                    <button class="container-button" type="button" id="custom-button">CHOOSE A FILE</button>
                     <span id="custom-text">No file chosen, yet.</span>
                     <script type="text/javascript">
                         const realFileBtn = document.getElementById("real-file");
@@ -44,7 +44,7 @@
                         <h4 class="text-right">Profile Settings</h4>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-md-6"><label class="labels">Name</label><input type="text" name="name" class="form-control" placeholder="first name" value="${user.name!    }"></div>
+                        <div class="col-md-6"><label class="labels">Name</label><input type="text" name="name" class="form-control" placeholder="first name" value="${user.name!}"></div>
                         <div class="col-md-6"><label class="labels">Surname</label><input type="text" name="surname" class="form-control" value="${user.surname!}" placeholder=""></div>
                     </div>
                     <div class="row mt-3">

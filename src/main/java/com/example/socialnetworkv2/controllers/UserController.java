@@ -103,4 +103,12 @@ public class UserController {
         return "subscriptions";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("{user}")
+    public String deleteUser(@PathVariable User user){
+        user=userRepo.findById(user.getId()).get();
+        userRepo.delete(user);
+        return "redirect:/user";
+    }
+
 }

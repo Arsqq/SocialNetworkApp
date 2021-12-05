@@ -1,8 +1,10 @@
 package com.example.socialnetworkv2.controllers;
 
+import com.example.socialnetworkv2.domain.Comment;
 import com.example.socialnetworkv2.domain.Message;
 import com.example.socialnetworkv2.domain.User;
 import com.example.socialnetworkv2.domain.dto.MessageDto;
+import com.example.socialnetworkv2.repo.CommentRepo;
 import com.example.socialnetworkv2.repo.MessageRepo;
 import com.example.socialnetworkv2.service.FileUploaderService;
 import com.example.socialnetworkv2.service.MessageService;
@@ -28,6 +30,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -49,6 +52,9 @@ public class MessageController {
 
     private final Logger LOG = LoggerFactory.getLogger(MessageController.class);
 
+    @Autowired
+    private CommentRepo commentRepo;
+
     @GetMapping("/")
     public String greeting(Model model, @AuthenticationPrincipal User user) {
         model.addAttribute("user", user);
@@ -65,13 +71,11 @@ public class MessageController {
     public String main(@RequestParam(required = false, defaultValue = "") String filter,
                        Model model,@PageableDefault(sort = {"id"},direction = Sort.Direction.DESC) Pageable pageable,
                        @AuthenticationPrincipal User user) {
-        Page<MessageDto> page=messageService.messageList(pageable, filter,user);
 
+        Page<MessageDto> page=messageService.messageList(pageable, filter,user);
         model.addAttribute("page", page);
         model.addAttribute("url","/main");
         model.addAttribute("filter", filter);
-
-
         return "main";
     }
 
@@ -86,7 +90,6 @@ public class MessageController {
                       Model model
     ) {
         message.setAuthor(user);
-
         if (bindingResult.hasErrors()) {
             Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
             model.mergeAttributes(errorsMap);
@@ -99,8 +102,6 @@ public class MessageController {
         Page<MessageDto> page=messageService.messageList(pageable, filter,user);
         model.addAttribute("page", page);
         model.addAttribute("filter", "");
-
-
         return "main";
     }
 
@@ -186,8 +187,25 @@ public class MessageController {
     }
 
     @GetMapping("/messages/{message}/comments")
-    public String comment(@PathVariable Message message) {
+    public String getComments(@PathVariable Message message,Model model) {
+        List<Comment> comments = commentRepo.findAllByMessageId(message.getId());
+        model.addAttribute("comments",comments);
         return "comments";
+    }
+
+    @PostMapping("/messages/{message}/comments")
+    public String leaveComment(
+            @PathVariable Message message,@RequestParam("msg") String commentText,
+            @AuthenticationPrincipal User author,Comment comment
+    ) {
+        Date date = new Date();
+        comment.setMessage(message);
+        comment.setAuthor(author);
+        comment.setText(commentText);
+        comment.setDateOfCreation(date);
+        commentRepo.save(comment);
+
+        return "redirect:/messages/{message}/comments";
     }
 
 }

@@ -1,23 +1,29 @@
 <#import "parts/common.ftl" as c>
 <@c.page>
     <link rel="stylesheet" href="/static/backForMessagesAndProfile.css">
+    <link rel="stylesheet" href="/static/forSubs.css">
     <link rel="stylesheet" href="/static/profile.css">
+    <div class="secondColor">
     <div class="row">
         <img class="avatar"
              src="/img/${userChannel.filename!}">
-        <h3>${userChannel.username}</h3>
+        <div class="col">
+            <h3>${userChannel.username}</h3>
+            <span>${userChannel.name!},${userChannel.age!} лет</span>
+        </div>
+    </div>
     </div>
     <#if !isCurrentUser>
         <#if isSubscribed>
-            <a class="btn btn-warning" href="/user/unsubscribe/${userChannel.id}">Unsubscribe</a>
+            <button class="container-button" onclick=window.location.href="/user/unsubscribe/${userChannel.id}">Unsubscribe</button>
         <#else>
-            <a class="btn btn-warning" href="/user/subscribe/${userChannel.id}">Subscribe</a>
+            <button class="container-button" onclick=window.location.href="/user/subscribe/${userChannel.id}">Subscribe</button>
         </#if>
     </#if>
     <div class="container my-3">
         <div class="row">
             <div class="col">
-                <div class="card">
+                <div class="niceColor">
                     <div class="card-body">
                         <div class="card-title">Subscriptions</div>
                         <h3 class="card-text">
@@ -27,7 +33,7 @@
                 </div>
             </div>
             <div class="col">
-                <div class="card">
+                <div class="niceColor">
                     <div class="card-body">
                         <div class="card-title">Subscribers</div>
                         <h3 class="card-text">
