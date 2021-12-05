@@ -1,0 +1,36 @@
+body {
+    background-image: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
+    background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.container-button {
+    background-image: linear-gradient(to left, rgba(255, 146, 202, 0.75) 0%, rgba(145, 149, 251, 0.86) 100%);
+    box-shadow: 0 9px 25px -5px #df91fb;
+    font-family: 'Abel', sans-serif;
+    padding: 0.5em 1.9em;
+    border-radius: 7px;
+    font-size: 1.4em;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-size: 1em;
+    outline: none;
+    border: none;
+    transition: 0.3s linear;
+}
+.gradButton{
+    cursor: pointer; /* "hand" cursor */
+    box-shadow: 0 9px 25px -5px #df91fb;
+    font-family: 'Abel', sans-serif;
+    padding: 0.5em 1.9em;
+    border-radius: 7px;
+    font-size: 1.4em;
+    color:white;
+    cursor: pointer;
+    background-image: linear-gradient(to right top, #e96b9f, #f76d8d, #ff7379, #ff7d65, #ff8a51, #f29d45, #e1af41, #cdbf49, #aed16b, #91e095, #7ceac1, #79f2e7);
+    font-size: 1em;
+    outline: none;
+    border: none;
+    transition: 0.3s linear;
+}

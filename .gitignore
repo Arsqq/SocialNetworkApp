@@ -18,7 +18,10 @@ target/
 *.iws
 *.iml
 *.ipr
-
+.mvn
+.gitignore
+mvnw.cmd
+log4j2.xml
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/

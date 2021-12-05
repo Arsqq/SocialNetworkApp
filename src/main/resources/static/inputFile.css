@@ -1,0 +1,41 @@
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+
+}
+
+.inputfile + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    display: inline-block;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: red;
+}
+
+.inputfile + label {
+    cursor: pointer; /* "hand" cursor */
+    box-shadow: 0 9px 25px -5px #df91fb;
+    font-family: 'Abel', sans-serif;
+    padding: 0.5em 1.9em;
+    border-radius: 7px;
+    font-size: 1.4em;
+    cursor: pointer;
+    background-image: linear-gradient(to right top, #e96b9f, #f76d8d, #ff7379, #ff7d65, #ff8a51, #f29d45, #e1af41, #cdbf49, #aed16b, #91e095, #7ceac1, #79f2e7);
+    font-size: 1em;
+    outline: none;
+    border: none;
+    transition: 0.3s linear;
+}
+
+.inputfile:focus + label {
+    outline: 1px dotted #000;
+    outline: -webkit-focus-ring-color auto 5px;
+}
