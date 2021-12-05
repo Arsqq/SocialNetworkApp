@@ -6,6 +6,7 @@ import com.example.socialnetworkv2.domain.User;
 import com.example.socialnetworkv2.domain.dto.MessageDto;
 import com.example.socialnetworkv2.repo.CommentRepo;
 import com.example.socialnetworkv2.repo.MessageRepo;
+import com.example.socialnetworkv2.repo.UserRepo;
 import com.example.socialnetworkv2.service.FileUploaderService;
 import com.example.socialnetworkv2.service.MessageService;
 import lombok.SneakyThrows;
@@ -30,10 +31,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class MessageController {
@@ -54,6 +52,8 @@ public class MessageController {
 
     @Autowired
     private CommentRepo commentRepo;
+    @Autowired
+    private UserRepo userRepo;
 
     @GetMapping("/")
     public String greeting(Model model, @AuthenticationPrincipal User user) {
@@ -64,6 +64,21 @@ public class MessageController {
     @GetMapping("/home")
     public String home(Model model, @AuthenticationPrincipal User user) {
         model.addAttribute("user", user);
+        List<Message> listForTrends=messageRepo.findAll();
+        List<User> userListForTrends=userRepo.findAll();
+
+        userListForTrends.sort(Comparator.comparing(o -> o.getSubscribers().size()));
+        model.addAttribute("userWithMostSubscribers",userListForTrends.get(userListForTrends.size()-1));
+        userListForTrends.sort(Comparator.comparing(o -> o.getMessages().size()));
+        model.addAttribute("userWithMostMessages",userListForTrends.get(userListForTrends.size()-1));
+        userListForTrends.sort(Comparator.comparing(o -> o.getSubscriptions().size()));
+        model.addAttribute("userWithMostSubscriptions",userListForTrends.get(userListForTrends.size()-1));
+        listForTrends.sort(Comparator.comparing(o -> o.getComments().size()));
+        model.addAttribute("msgWithMostComments",listForTrends.get(listForTrends.size()-1));
+        listForTrends.sort(Comparator.comparing(o -> o.getLikes().size()));
+        model.addAttribute("msgWithMostLikes",listForTrends.get(listForTrends.size()-1));
+        listForTrends.sort(Comparator.comparing(o -> o.getText().length()));
+        model.addAttribute("msgLongest",listForTrends.get(listForTrends.size()-1));
         return "home";
     }
 
@@ -133,8 +148,8 @@ public class MessageController {
             @RequestParam("id") Message message,
             @RequestParam("text") String text,
             @RequestParam("tag") String tag,
-            @RequestParam("file") MultipartFile file
-    ) throws IOException {
+            @RequestParam("file") MultipartFile file,
+            RedirectAttributes redirectAttributes) throws IOException {
         if (message.getAuthor().equals(currentUser)) {
             if (!StringUtils.isEmpty(text)) {
                 message.setText(text);
@@ -148,19 +163,20 @@ public class MessageController {
             message.setFilename(fileUploaderService.uploadFile(file));
             messageRepo.save(message);
         }
-
+        redirectAttributes.addFlashAttribute("alertMessage","Message was successfully edited!");
         return "redirect:/user-messages/" + user;
     }
 
     @PostMapping("/user-messages/{user}/{id}")
     public String deleteMessage(
-            @PathVariable Long id, @PathVariable Long user, Model model) {
+            @PathVariable Long id, @PathVariable Long user, Model model, RedirectAttributes redirectAttributes) {
 
         Message message=messageRepo.findById(id).get();
         model.addAttribute("message",message);
         model.addAttribute("messageAlert","Message was successfully deleted!");
         messageRepo.delete(message);
-        return "redirect:/user-messages/" + user;
+        redirectAttributes.addFlashAttribute("alertMessage","Message was successfully deleted!");
+        return "redirect:/main";
     }
     @GetMapping("/messages/{message}/like")
     public String like(
@@ -182,7 +198,6 @@ public class MessageController {
         components.getQueryParams()
                 .entrySet()
                 .forEach(pair -> redirectAttributes.addAttribute(pair.getKey(), pair.getValue()));
-
         return "redirect:" + components.getPath();
     }
 
@@ -190,6 +205,7 @@ public class MessageController {
     public String getComments(@PathVariable Message message,Model model) {
         List<Comment> comments = commentRepo.findAllByMessageId(message.getId());
         model.addAttribute("comments",comments);
+        model.addAttribute("message",message);
         return "comments";
     }
 
@@ -205,6 +221,16 @@ public class MessageController {
         comment.setDateOfCreation(date);
         commentRepo.save(comment);
 
+        return "redirect:/messages/{message}/comments";
+    }
+
+    @PostMapping("/messages/{message}/comments/{id}")
+    public String deleteComment(Model model, @PathVariable Long id,
+                                @PathVariable Message message,RedirectAttributes redirectAttributes) {
+        model.addAttribute("message",message);
+        Comment comment = commentRepo.findById(id).get();
+        commentRepo.delete(comment);
+        redirectAttributes.addFlashAttribute("alertMessage","Comment was successfully deleted!");
         return "redirect:/messages/{message}/comments";
     }
 

@@ -10,8 +10,13 @@
         <div class="row">
             <div class="col-md-3 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                    <img class="avatar"
-                         src="/img/${user.filename!}">
+                    <#if user.filename??>
+                        <img class="avatar"
+                             src="/img/${user.filename!}">
+                    <#else>
+                        <img class="avatar"
+                             src="/static/images/istockphoto-476085198-612x612.jpg">
+                    </#if>
                     <input type="file" id="real-file" name="file" hidden="hidden" />
                     <button class="container-button" type="button" id="custom-button">CHOOSE A FILE</button>
                     <span id="custom-text">No file chosen, yet.</span>

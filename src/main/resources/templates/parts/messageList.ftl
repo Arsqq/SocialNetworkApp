@@ -47,7 +47,6 @@
                     <div class="p-2">
                         <form action="/user-messages/${message.author.id}/${message.id}" method="post">
                             <button type="submit" value="delete" class="btn"><i class="fa fa-trash"></i></button>
-
                             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                         </form>
                     </div>

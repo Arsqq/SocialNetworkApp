@@ -40,4 +40,6 @@ public interface MessageRepo extends JpaRepository<Message, Long> {
             "where m.author = :author " +
             "group by m")
     Page<MessageDto> findByUser(Pageable pageable, @Param("author") User author, @Param("user") User user);
+
+    List<Message> findAll();
 }

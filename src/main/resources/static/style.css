@@ -29,6 +29,7 @@ body{
     -webkit-text-fill-color: transparent;
 }
 
+
 .header2 {
     font-family: "Book Antiqua";
     text-align: center;
@@ -52,3 +53,17 @@ body {
     -webkit-animation-timing-function: linear;
 }
 
+.container-button {
+    background-image: linear-gradient(to left, rgba(255, 146, 202, 0.75) 0%, rgba(145, 149, 251, 0.86) 100%);
+    box-shadow: 0 9px 25px -5px #df91fb;
+    font-family: 'Abel', sans-serif;
+    padding: 0.5em 1.9em;
+    border-radius: 7px;
+    font-size: 1.4em;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-size: 1em;
+    outline: none;
+    border: none;
+    transition: 0.3s linear;
+}

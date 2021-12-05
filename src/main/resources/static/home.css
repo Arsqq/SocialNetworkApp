@@ -1,13 +1,13 @@
 .myBodyHome {
-    min-height: 1000px;
     height: auto;
-    width:auto;
+    width: 1250px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     border-radius: 5px;
-    margin: 2% auto;
     box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
-    padding: 2%;
     background-image: linear-gradient(to right top, #9cdff2, #87d2f0, #74c5ef, #67b7ed, #61a8ea, #779ee9, #8e93e3, #a487d9, #c77ec8, #e077b0, #ee7595, #f27979);
-    display: flex;
+
 }
 
 header {

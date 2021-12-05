@@ -18,7 +18,6 @@
                     <input type="text"  id="txt-input"
                            class="form-input" name="username" placeholder="Username"
                            value="<#if user??>${user.username}</#if>">
-
                     <br>
                     <span class="input-item">
           <i class="fa fa-key"></i>
@@ -44,9 +43,6 @@
                                 }
                             }
                         </script>
-
-
-
                 </span>
                     <br>
                     <!--        buttons -->
@@ -66,7 +62,6 @@
                 </div>
                 <!--   End Conrainer  -->
             </div>
-
         </form>
     </div>
 </#macro>

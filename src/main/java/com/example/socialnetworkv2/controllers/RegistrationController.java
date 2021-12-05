@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.Collections;
@@ -45,8 +46,8 @@ public class RegistrationController {
             @RequestParam("g-recaptcha-response") String captchaResponce,
             @Valid User user,
             BindingResult bindingResult,
-            Model model
-    ) {
+            Model model, RedirectAttributes redirectAttributes
+            ) {
         String url = String.format(CAPTCHA_URL, secret, captchaResponce);
         CaptchaResponseDto response = restTemplate.postForObject(url, Collections.emptyList(), CaptchaResponseDto.class);
 
@@ -77,7 +78,8 @@ public class RegistrationController {
             model.addAttribute("usernameError", "User exists!");
             return "registration";
         }
-
+        redirectAttributes.addFlashAttribute("alertMessage","Check your mailbox to confirm registration!");
+        model.addAttribute("alertMessage","kek");
         return "redirect:/login";
     }
 
@@ -92,8 +94,7 @@ public class RegistrationController {
             model.addAttribute("messageType", "danger");
             model.addAttribute("message", "Activation code is not found!");
         }
-
-        return "login";
+        return "redirect:/login";
     }
 }
 

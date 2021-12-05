@@ -3,10 +3,18 @@
     <link rel="stylesheet" href="/static/backForMessagesAndProfile.css">
     <link rel="stylesheet" href="/static/forSubs.css">
     <link rel="stylesheet" href="/static/profile.css">
+    <#if alertMessage??>
+        <div class="alert alert-success" role="alert">${alertMessage}</div>
+    </#if>
     <div class="secondColor">
     <div class="row">
-        <img class="avatar"
-             src="/img/${userChannel.filename!}">
+        <#if userChannel.filename??>
+            <img class="avatar"
+                 src="/img/${userChannel.filename!}">
+        <#else>
+            <img class="avatar"
+                 src="/static/images/istockphoto-476085198-612x612.jpg">
+        </#if>
         <div class="col">
             <h3>${userChannel.username}</h3>
             <span>${userChannel.name!},${userChannel.age!} лет</span>

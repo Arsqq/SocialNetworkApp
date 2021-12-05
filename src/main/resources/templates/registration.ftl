@@ -66,7 +66,6 @@
             </label>
             <div class="clear"> </div>
           </div>
-        <p>Don't have an Account? <a href="#"> Login Now!</a></p>
       <input type="hidden" name="_csrf" value="${_csrf.token}" />
       <input type="submit" value="SIGN UP">
           <div>
