@@ -12,15 +12,13 @@ target/
 .settings
 .springBeans
 .sts4-cache
-
+mvnw.cmd
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
 .mvn
-.gitignore
-mvnw.cmd
 log4j2.xml
 ### NetBeans ###
 /nbproject/private/
