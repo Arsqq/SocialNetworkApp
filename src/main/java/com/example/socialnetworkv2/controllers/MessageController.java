@@ -79,7 +79,7 @@ public class MessageController {
         model.addAttribute("msgWithMostLikes",listForTrends.get(listForTrends.size()-1));
         listForTrends.sort(Comparator.comparing(o -> o.getText().length()));
         model.addAttribute("msgLongest",listForTrends.get(listForTrends.size()-1));
-        return "home";
+        return "homeTwo";
     }
 
     @GetMapping("/main")
@@ -104,7 +104,7 @@ public class MessageController {
                       @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable,
                       Model model
     ) {
-        message.setAuthor(user);
+            message.setAuthor(user);
         if (bindingResult.hasErrors()) {
             Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
             model.mergeAttributes(errorsMap);

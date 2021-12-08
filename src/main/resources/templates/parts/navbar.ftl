@@ -13,7 +13,7 @@
             <li class="nav-item">
                 <a class="nav-link"  href="/home">Home <i class="fas fa-home"></i></a>
             </li>
-            <#if user??>
+            <#if user?? && name !="unknown" >
             <li class="nav-item">
                 <a class="nav-link" href="/main">Messages <i class="fas fa-envelope-open-text"></i></a>
             </li>
@@ -26,7 +26,7 @@
                     <a class="nav-link" href="/user">User list <i class="fas fa-th-list"></i></a>
                 </li>
             </#if>
-            <#if user??>
+            <#if user?? && name !="unknown" >
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                        Settings</a>
@@ -38,7 +38,7 @@
             </#if>
         </ul>
 
-        <div class="navbar-text mr-3"><#if user??>${name}<#else>Please,log in</#if></div>
+        <div class="navbar-text mr-3"><#if user?? && name !="unknown" >${name}<#else>Please,log in</#if></div>
         <@l.logout />
     </div>
 </nav>

@@ -3,6 +3,9 @@
 <@c.page>
     <link rel="stylesheet" href="static/table.css">
     <link rel="stylesheet" href="static/btn.css">
+    <#if alertMessage??>
+        <div class="alert alert-danger" role="alert">${alertMessage}</div>
+    </#if>
     <h1>User List</h1>
     <div class="tbl-header">
 <table>

@@ -1,20 +1,16 @@
 package com.example.socialnetworkv2.service;
 
-import antlr.StringUtils;
 import com.example.socialnetworkv2.domain.Role;
 import com.example.socialnetworkv2.domain.User;
 import com.example.socialnetworkv2.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -79,7 +75,7 @@ public class UserService implements UserDetailsService {
         return userRepo.findAll();
     }
 
-    public void saveUser(User user, String username, Map<String, String> form) {
+    public void saveUser(User user, String username, Map<String, String> form, RedirectAttributes redirectAttributes) {
         user.setUsername(username);
 
         Set<String> roles=Arrays.stream(Role.values()).map(Role::name).collect(Collectors.toSet());
@@ -90,6 +86,11 @@ public class UserService implements UserDetailsService {
             if(roles.contains(key)){
                 user.getRoles().add(Role.valueOf(key));
             }
+        }
+
+        if(user.getRoles().isEmpty()){
+            user.getRoles().add(Role.USER);
+            redirectAttributes.addFlashAttribute("alertMessage","User should have at least one role!");
         }
 
         userRepo.save(user);

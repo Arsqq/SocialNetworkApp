@@ -1,35 +1,100 @@
-.myBodyHome {
-    height: auto;
-    width: 1250px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 5px;
-    box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
-    background-image: linear-gradient(to right top, #9cdff2, #87d2f0, #74c5ef, #67b7ed, #61a8ea, #779ee9, #8e93e3, #a487d9, #c77ec8, #e077b0, #ee7595, #f27979);
+.gallery {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  display: grid;
+  height: 75vh;
+  grid-template-columns: repeat(auto-fit, minmax(20ch, 1fr));
+  gap: 1rem;
+}
+
+.gallery img {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 75vh;
+  object-fit: cover;
+}
+
+.block-overlay {
+  position: absolute;
+  width: 100%;
+  height: 75vh;
+}
+
+.text-block {
+  margin-top: 25vh;
+  margin-right: 5vh;
+  color: rgb(250, 250, 250);
+  z-index: 1;
+  text-align: center;
+}
+
+.bolder {
+  font-weight: 600;
+}
+
+.colored {
+  background: rgba(131, 97, 129, 0.629);
+}
+
+.block__wrapper__right {
+  height: 70vh;
+  background-color: #DFC2F2;
+  background-image: linear-gradient(to right, #ffffb3, #ffe6e6);
+}
+
+.block__wrapper__left {
+  height: 70vh;
+  background-color: #DFC2F2;
+  background-image: linear-gradient(to left, #ffffb3, #ffe6e6);
+}
+
+.block {
+  height: inherit;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+@media screen and (max-width: 600px) {
+  .block {
+    flex-direction: column;
+  }
+}
+
+.message {
+  margin-top: 5vh;
+  margin-left: 5vw;
+  margin-right: 5vw;
+  box-shadow: 0 15px 30px 1px grey;
+  background: rgba(255, 255, 255, 0.90);
+  text-align: center;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 450px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
 
 }
 
-header {
-    margin: 2% auto 10% auto;
-    text-align: center;
+.message>img {
+  height: 350px;
+  width: 350px;
+  object-fit: cover;
+
 }
 
-header h2 {
-    font-size: 250%;
-    font-family: 'Playfair Display', serif;
-    color: #3e403f;
+.message>.text {
+  margin-top: 15px;
 }
 
- .con {
-    display: -webkit-flex;
-    display: flex;
-
-    -webkit-justify-content: space-around;
-    justify-content: space-around;
-
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
-
-    margin: 0 auto;
+.text {
+  margin-left: 5vw;
+  margin-right: 5vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
 }

@@ -70,7 +70,6 @@ public class RegistrationController {
             Map<String, String> errors = ControllerUtils.getErrors(bindingResult);
 
             model.mergeAttributes(errors);
-
             return "registration";
         }
 
@@ -79,7 +78,6 @@ public class RegistrationController {
             return "registration";
         }
         redirectAttributes.addFlashAttribute("alertMessage","Check your mailbox to confirm registration!");
-        model.addAttribute("alertMessage","kek");
         return "redirect:/login";
     }
 
