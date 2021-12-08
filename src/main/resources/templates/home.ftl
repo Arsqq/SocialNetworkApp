@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                             <p class="cardCustom__description">Wow!This user is the most popular one</p>
-                            <p class="cardCustom__description">His amount of subscribers:${userWithMostSubscribers.subscribers?size}</p>
+                            <p class="cardCustom__description">His number of subscribers:${userWithMostSubscribers.subscribers?size}</p>
                         </div>
                     </a>
                 </div>
@@ -41,7 +41,7 @@
                                     <span>${userWithMostMessages.name!},${userWithMostMessages.age!} лет</span>
                                 </div>
                             </div>
-                            <p class="cardCustom__description">Wow!This user wrote the largest amount of messages</p>
+                            <p class="cardCustom__description">Wow!This user wrote the largest number of messages</p>
                             <p class="cardCustom__description">Messages wrote:${userWithMostMessages.messages?size}</p>
                         </div>
                     </a>
@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                             <p class="cardCustom__description">Wow!This user has the largest amount of subscriptions</p>
-                            <p class="cardCustom__description">Amount of subscriptions:${userWithMostSubscriptions.subscriptions?size}</p>
+                            <p class="cardCustom__description">Number of subscriptions:${userWithMostSubscriptions.subscriptions?size}</p>
                         </div>
                     </a>
                 </div>

@@ -1,5 +1,6 @@
 <#import "parts/common.ftl" as c>
 <#import "parts/login.ftl" as l>
+    <#include "parts/security.ftl">
 
 <@c.page>
     <link rel="stylesheet" href="/static/comments.css">
@@ -19,6 +20,7 @@
                     <h4>${comment.author.username!}</h4> <span>-${comment.dateOfCreation!}</span> <br>
                     <div class="d-flex flex-row">
                             <span>${comment.text!}</span>
+                        <#if comment.author.id==currentUserId>
                         <div class="p-2">
                             <form action="/messages/${message.id}/comments/${comment.id}" method="post">
                                 <button type="submit" value="delete" class="btn">
@@ -27,6 +29,17 @@
                                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                             </form>
                         </div>
+
+                            <#elseif isAdmin>
+                                <div class="p-2">
+                                    <form action="/messages/${message.id}/comments/${comment.id}" method="post">
+                                        <button type="submit" value="delete" class="btn">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                                    </form>
+                                </div>
+                        </#if>
                     </div>
                 </div>
                 </#list>
