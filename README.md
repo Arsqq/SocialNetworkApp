@@ -1,1 +1,1 @@
-This is my Twitter like Pet project
+This is my SpringMVC twitter-clone project(frontend+backend)
